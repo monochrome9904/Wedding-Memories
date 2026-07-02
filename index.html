@@ -6,7 +6,8 @@
     <title>The Wedding of Thamashi & Pawan</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <!-- Imported Alex Brush for a premium calligraphy cursive finish -->
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -14,6 +15,7 @@
             --primary-dark: #2c2a29;
             --bg-ivory: #faf8f5;
             --text-muted: #736f6c;
+            --wedding-pink: #f5e1e6; /* The soft blush pink identified from your invitation */
         }
         
         body {
@@ -49,11 +51,10 @@
             pointer-events: none;
         }
 
-        /* Circular framing container for the custom wedding illustration */
         .illustration-container {
             width: 130px;
             height: 130px;
-            margin: 0 auto 20px auto;
+            margin: 0 auto 16px auto;
             border-radius: 50%;
             overflow: hidden;
             border: 1px solid rgba(195, 163, 115, 0.25);
@@ -70,12 +71,14 @@
             object-fit: cover;
         }
 
+        /* Beautiful cursive styling with custom blush pink accent */
         h1 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 32px;
+            font-family: 'Alex Brush', cursive;
+            font-size: 46px;
             font-weight: 400;
-            margin: 0 0 12px 0;
-            letter-spacing: 1px;
+            color: var(--wedding-pink);
+            margin: 0 0 16px 0;
+            text-shadow: 0.5px 0.5px 0px rgba(44, 42, 41, 0.1); /* Subtle definition contrast */
         }
 
         .sub-wording {
@@ -162,12 +165,12 @@
 <body>
 
 <div class="wedding-card">
-    <!-- Image source explicitly referencing 51657.jpeg verbatim -->
     <div class="illustration-container">
         <img src="51657.jpeg" alt="Thamashi & Pawan Wedding Illustration">
     </div>
 
     <h1>Thamashi & Pawan</h1>
+    
     <div class="sub-wording">
         "Every picture tells a part of our story. Thank you for capturing the moments we will cherish forever."
     </div>
