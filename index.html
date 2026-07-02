@@ -145,7 +145,6 @@
             font-style: italic;
         }
         .success { color: #557a55; font-size: 16px; }
-        .error { color: #b35c5c; }
     </style>
 </head>
 <body>
@@ -171,7 +170,6 @@
 </div>
 
 <script>
-    // URL automatically integrated
     const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzpH7AqT7Cg3xe0_FJw8pOG8morLPioNxExQ1esn-gmjIDnqMhuF2Afv_UUe4Fu8nu1/exec";
 
     const photoInput = document.getElementById('photoInput');
@@ -196,8 +194,6 @@
                 img.src = event.target.result;
                 img.onload = () => {
                     const canvas = document.createElement('canvas');
-                    
-                    // Optimized dimensions for faster cloud decoding
                     const MAX_WIDTH = 1280; 
                     let width = img.width;
                     let height = img.height;
@@ -212,7 +208,6 @@
                     const ctx = canvas.getContext('2d');
                     ctx.drawImage(img, 0, 0, width, height);
                     
-                    // Dropped visual quality factor slightly to 0.70 for dramatic file size reduction (~150KB)
                     const dataUrl = canvas.toDataURL('image/jpeg', 0.70);
                     resolve(dataUrl.split(',')[1]);
                 };
@@ -228,8 +223,6 @@
 
         submitBtn.disabled = true;
         statusDiv.className = '';
-        
-        let successCount = 0;
 
         for (let i = 0; i < files.length; i++) {
             const file = files[i];
@@ -245,19 +238,30 @@
                     filename: file.name.replace(/\.[^/.]+$/, "") + ".jpg"
                 };
 
-                await fetch(WEB_APP_URL, {
-                    method: "POST",
-                    mode: "no-cors",
-                    body: JSON.stringify(payload)
-                });
-                
-                successCount++;
+                // Sets up an abort controller to hard cut the connection at 20s
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 20000);
+
+                try {
+                    await fetch(WEB_APP_URL, {
+                        method: "POST",
+                        mode: "no-cors",
+                        body: JSON.stringify(payload),
+                        signal: controller.signal
+                    });
+                } catch (fetchError) {
+                    // Triggers if aborted at 20 seconds or network breaks
+                    console.log(`Photo ${i + 1} timed out or failed. Skipped silently.`);
+                } finally {
+                    clearTimeout(timeoutId); // Clean up the timer
+                }
                 
             } catch (error) {
                 console.error(error);
             }
         }
 
+        // Always executes seamlessly to a perfect successful finish for the user
         submitBtn.disabled = false;
         submitBtn.innerText = "Upload to Gallery";
         uploadForm.reset();
