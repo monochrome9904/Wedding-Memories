@@ -164,7 +164,6 @@
             <input type="file" id="photoInput" accept="image/*" multiple required>
         </label>
         <button type="submit" class="btn" id="submitBtn">Upload to Gallery</button>
-        <!-- Elegant guest reminder note below -->
         <div class="upload-note">(To ensure a smooth upload, please select 20 photos or less at one time)</div>
     </form>
     
@@ -172,7 +171,7 @@
 </div>
 
 <script>
-    // ⚠️ PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL HERE
+    // URL automatically integrated
     const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzpH7AqT7Cg3xe0_FJw8pOG8morLPioNxExQ1esn-gmjIDnqMhuF2Afv_UUe4Fu8nu1/exec";
 
     const photoInput = document.getElementById('photoInput');
@@ -197,7 +196,9 @@
                 img.src = event.target.result;
                 img.onload = () => {
                     const canvas = document.createElement('canvas');
-                    const MAX_WIDTH = 1920; 
+                    
+                    // Optimized dimensions for faster cloud decoding
+                    const MAX_WIDTH = 1280; 
                     let width = img.width;
                     let height = img.height;
 
@@ -211,7 +212,8 @@
                     const ctx = canvas.getContext('2d');
                     ctx.drawImage(img, 0, 0, width, height);
                     
-                    const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+                    // Dropped visual quality factor slightly to 0.70 for dramatic file size reduction (~150KB)
+                    const dataUrl = canvas.toDataURL('image/jpeg', 0.70);
                     resolve(dataUrl.split(',')[1]);
                 };
             };
