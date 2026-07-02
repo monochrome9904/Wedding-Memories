@@ -6,7 +6,6 @@
     <title>The Wedding of Thamashi & Pawan</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Imported Alex Brush for a premium calligraphy cursive finish -->
     <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     
     <style>
@@ -15,7 +14,7 @@
             --primary-dark: #2c2a29;
             --bg-ivory: #faf8f5;
             --text-muted: #736f6c;
-            --wedding-pink: #f5e1e6; /* The soft blush pink identified from your invitation */
+            --wedding-pink: #9c4153; /* Darker, richer deep rose color for better visibility */
         }
         
         body {
@@ -27,13 +26,13 @@
             justify-content: center;
             min-height: 100vh;
             margin: 0;
-            padding: 24px;
+            padding: 16px; /* Slightly reduced padding for mobile optimization */
             box-sizing: border-box;
         }
 
         .wedding-card {
             background: #ffffff;
-            padding: 48px 32px;
+            padding: 40px 24px; /* Optimized padding for mobile viewports */
             border-radius: 4px;
             box-shadow: 0 20px 50px rgba(44, 42, 41, 0.03);
             max-width: 450px;
@@ -41,6 +40,7 @@
             text-align: center;
             border: 1px solid rgba(195, 163, 115, 0.15);
             position: relative;
+            box-sizing: border-box;
         }
 
         .wedding-card::before {
@@ -71,24 +71,26 @@
             object-fit: cover;
         }
 
-        /* Beautiful cursive styling with custom blush pink accent */
+        /* Fixed text sizing and forced layout containment for mobile displays */
         h1 {
             font-family: 'Alex Brush', cursive;
-            font-size: 46px;
+            font-size: 38px; /* Balanced down from 46px to comfortably fit mobile screens */
             font-weight: 400;
             color: var(--wedding-pink);
             margin: 0 0 16px 0;
-            text-shadow: 0.5px 0.5px 0px rgba(44, 42, 41, 0.1); /* Subtle definition contrast */
+            white-space: nowrap; /* Guarantees the names remain strictly on a single line */
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .sub-wording {
             font-family: 'Cormorant Garamond', serif;
             font-style: italic;
             color: var(--text-muted);
-            font-size: 18px;
+            font-size: 17px;
             line-height: 1.6;
             margin-bottom: 32px;
-            padding: 0 15px;
+            padding: 0 8px;
         }
         
         .drop-zone {
